@@ -1,7 +1,7 @@
 /* dual-button-v2-bricklet
  * Copyright (C) 2018 Olaf Lüke <olaf@tinkerforge.com>
  *
- * main.c: Initialization for Dual Button V2 Bricklet
+ * config_button.h: Logging configuration for Dual Button V2 Bricklet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,27 +19,15 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <stdio.h>
-#include <stdbool.h>
+#ifndef CONFIG_BUTTON_H
+#define CONFIG_BUTTOH_H
 
-#include "configs/config.h"
+#include "xmc_gpio.h"
 
-#include "bricklib2/bootloader/bootloader.h"
-#include "bricklib2/hal/system_timer/system_timer.h"
-#include "bricklib2/logging/logging.h"
-#include "communication.h"
-#include "button.h"
+#define BUTTON_LED_L_PIN     P2_1
+#define BUTTON_LED_R_PIN     P0_9
 
-int main(void) {
-	logging_init();
-	logd("Start Dual Button V2 Bricklet\n\r");
+#define BUTTON_SWITCH_L_PIN  P2_2
+#define BUTTON_SWITCH_R_PIN  P0_8
 
-	communication_init();
-	button_init();
-
-	while(true) {
-		bootloader_tick();
-		communication_tick();
-		button_tick();
-	}
-}
+#endif

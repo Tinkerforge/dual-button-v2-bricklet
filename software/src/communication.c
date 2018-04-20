@@ -24,6 +24,10 @@
 #include "bricklib2/utility/communication_callback.h"
 #include "bricklib2/protocols/tfp/tfp.h"
 
+#include "configs/config_button.h"
+#include "button.h"
+#include "xmc_gpio.h"
+
 BootloaderHandleMessageResponse handle_message(const void *message, void *response) {
 	switch(tfp_get_fid_from_message(message)) {
 		case FID_SET_LED_STATE: return set_led_state(message);
@@ -37,36 +41,82 @@ BootloaderHandleMessageResponse handle_message(const void *message, void *respon
 }
 
 
+
 BootloaderHandleMessageResponse set_led_state(const SetLEDState *data) {
+	if(data->led_r < DUAL_BUTTON_V2_LED_STATE_AUTO_TOGGLE_ON || data->led_r > DUAL_BUTTON_V2_LED_STATE_OFF ||
+	   data->led_l < DUAL_BUTTON_V2_LED_STATE_AUTO_TOGGLE_ON || data->led_l > DUAL_BUTTON_V2_LED_STATE_OFF) {
+		return HANDLE_MESSAGE_RESPONSE_INVALID_PARAMETER;
+	}
+
+	button.led_l = data->led_l;
+	button.led_r = data->led_r;
+
+	if(data->led_l == DUAL_BUTTON_V2_LED_STATE_AUTO_TOGGLE_ON || data->led_l == DUAL_BUTTON_V2_LED_STATE_ON) {
+		XMC_GPIO_SetOutputLow(BUTTON_LED_L_PIN);
+	} else {
+		XMC_GPIO_SetOutputHigh(BUTTON_LED_L_PIN);
+	}
+
+	if(data->led_r == DUAL_BUTTON_V2_LED_STATE_AUTO_TOGGLE_ON || data->led_r == DUAL_BUTTON_V2_LED_STATE_ON) {
+		XMC_GPIO_SetOutputLow(BUTTON_LED_R_PIN);
+	} else {
+		XMC_GPIO_SetOutputHigh(BUTTON_LED_R_PIN);
+	}
 
 	return HANDLE_MESSAGE_RESPONSE_EMPTY;
 }
 
 BootloaderHandleMessageResponse get_led_state(const GetLEDState *data, GetLEDState_Response *response) {
 	response->header.length = sizeof(GetLEDState_Response);
+	response->led_l         = button.led_l;
+	response->led_r         = button.led_r;
 
 	return HANDLE_MESSAGE_RESPONSE_NEW_MESSAGE;
 }
 
 BootloaderHandleMessageResponse get_button_state(const GetButtonState *data, GetButtonState_Response *response) {
 	response->header.length = sizeof(GetButtonState_Response);
+	response->button_l      = button.button_l;
+	response->button_r      = button.button_r;
 
 	return HANDLE_MESSAGE_RESPONSE_NEW_MESSAGE;
 }
 
 BootloaderHandleMessageResponse set_selected_led_state(const SetSelectedLEDState *data) {
+	if(data->state < DUAL_BUTTON_V2_LED_STATE_AUTO_TOGGLE_ON || data->state > DUAL_BUTTON_V2_LED_STATE_OFF ||
+	   data->led < DUAL_BUTTON_V2_LED_LEFT || data->led > DUAL_BUTTON_V2_LED_RIGHT) {
+		return HANDLE_MESSAGE_RESPONSE_INVALID_PARAMETER;
+	}
+	if(data->led == DUAL_BUTTON_V2_LED_LEFT) {
+		button.led_l = data->state;
+		if(data->state == DUAL_BUTTON_V2_LED_STATE_AUTO_TOGGLE_ON || data->state == DUAL_BUTTON_V2_LED_STATE_ON) {
+			XMC_GPIO_SetOutputLow(BUTTON_LED_L_PIN);
+		} else {
+			XMC_GPIO_SetOutputHigh(BUTTON_LED_L_PIN);
+		}
+	}
+	
+	if(data->led == DUAL_BUTTON_V2_LED_RIGHT) {
+		button.led_r = data->state;
+		if(data->state == DUAL_BUTTON_V2_LED_STATE_AUTO_TOGGLE_ON || data->state == DUAL_BUTTON_V2_LED_STATE_ON) {
+			XMC_GPIO_SetOutputLow(BUTTON_LED_R_PIN);
+		} else {
+			XMC_GPIO_SetOutputHigh(BUTTON_LED_R_PIN);
+		}
+	}
 
 	return HANDLE_MESSAGE_RESPONSE_EMPTY;
 }
 
 BootloaderHandleMessageResponse set_state_changed_callback_configuration(const SetStateChangedCallbackConfiguration *data) {
+	button.state_changed_callback_enabled = data->enabled;
 
 	return HANDLE_MESSAGE_RESPONSE_EMPTY;
 }
 
 BootloaderHandleMessageResponse get_state_changed_callback_configuration(const GetStateChangedCallbackConfiguration *data, GetStateChangedCallbackConfiguration_Response *response) {
 	response->header.length = sizeof(GetStateChangedCallbackConfiguration_Response);
-
+	response->enabled       = button.state_changed_callback_enabled;
 	return HANDLE_MESSAGE_RESPONSE_NEW_MESSAGE;
 }
 
@@ -77,10 +127,15 @@ bool handle_state_changed_callback(void) {
 	static bool is_buffered = false;
 	static StateChanged_Callback cb;
 
-	if(!is_buffered) {
+	if(!is_buffered && button.state_changed_callback_enabled && button.state_changed) {
+		button.state_changed = false;
 		tfp_make_default_header(&cb.header, bootloader_get_uid(), sizeof(StateChanged_Callback), FID_CALLBACK_STATE_CHANGED);
-		// TODO: Implement StateChanged callback handling
 
+		cb.button_l = button.button_l;
+		cb.button_r	= button.button_r;
+		cb.led_l    = button.led_l;
+		cb.led_r    = button.led_r;
+	} else {
 		return false;
 	}
 

@@ -1,7 +1,7 @@
 /* dual-button-v2-bricklet
  * Copyright (C) 2018 Olaf Lüke <olaf@tinkerforge.com>
  *
- * main.c: Initialization for Dual Button V2 Bricklet
+ * button.h: Button/LED driver
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,27 +19,32 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <stdio.h>
+#ifndef BUTTON_H
+#define BUTTON_H
+
+#define BUTTON_DEBOUNCE_TIME 25 // in ms
+
+#include <stdint.h>
 #include <stdbool.h>
 
-#include "configs/config.h"
+typedef struct {
+    uint8_t button_l;
+    uint8_t button_r;
 
-#include "bricklib2/bootloader/bootloader.h"
-#include "bricklib2/hal/system_timer/system_timer.h"
-#include "bricklib2/logging/logging.h"
-#include "communication.h"
-#include "button.h"
+    uint8_t led_l;
+    uint8_t led_r;
 
-int main(void) {
-	logging_init();
-	logd("Start Dual Button V2 Bricklet\n\r");
+    uint32_t button_l_debounce;
+    uint32_t button_r_debounce;
 
-	communication_init();
-	button_init();
+    bool state_changed;
 
-	while(true) {
-		bootloader_tick();
-		communication_tick();
-		button_tick();
-	}
-}
+    bool state_changed_callback_enabled;
+} Button;
+
+extern Button button;
+
+void button_init(void);
+void button_tick(void);
+
+#endif
