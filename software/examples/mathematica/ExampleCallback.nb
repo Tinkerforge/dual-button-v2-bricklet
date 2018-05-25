@@ -1,0 +1,37 @@
+Notebook[{
+ Cell[
+  BoxData[{
+   RowBox[{"Needs", "[", "\"\<NETLink`\>\"", "]"}],
+   RowBox[{"LoadNETAssembly", "[", RowBox[{"\"\<Tinkerforge\>\"", ",", RowBox[{RowBox[{"NotebookDirectory", "[", "]"}], "<>", "\"\<../../..\>\""}]}], "]"}]
+  }], "Input"
+ ],
+ Cell[
+  BoxData[{
+   RowBox[{"host", "=", "\"\<localhost\>\""}],
+   RowBox[{"port", "=", "4223"}],
+   RowBox[{"uid", "=", "\"\<XYZ\>\"", RowBox[{"(*", "Change XYZ to the UID of your Dual Button Bricklet 2.0", "*)"}]}],
+   RowBox[{"
+"}],
+   RowBox[{"(*", "Create IPConnection and device object", "*)"}],
+   RowBox[{"ipcon", "=", RowBox[{"NETNew", "[", "\"\<Tinkerforge.IPConnection\>\"", "]"}]}],
+   RowBox[{"db", "=", RowBox[{"NETNew", "[", RowBox[{"\"\<Tinkerforge.BrickletDualButtonV2\>\"", ",", "uid", ",", "ipcon"}], "]"}]}],
+   RowBox[{"ipcon", "@", RowBox[{"Connect", "[", RowBox[{"host", ",", "port"}], "]"}]}],
+   RowBox[{"
+"}],
+   RowBox[{"(*", "Callback function for state changed callback", "*)"}],
+   RowBox[{RowBox[{"StateChangedCB", "[", RowBox[{"sender_", ",", "buttonL_", ",", "buttonR_", ",", "ledL_", ",", "ledR_"}], "]"}], ":=", "\[IndentingNewLine]", RowBox[{"Module", "[", RowBox[{RowBox[{"{", "}"}], ",", RowBox[{"\[IndentingNewLine]", RowBox[{"If", "[", RowBox[{RowBox[{"buttonL", "==", "Tinkerforge`BrickletDualButton`BUTTONUSTATEUPRESSED"}], ",", RowBox[{"\[IndentingNewLine]", RowBox[{"Print", "[", "\"\<Left button pressed\>\"", "]"}]}], ",", RowBox[{"\[IndentingNewLine]", RowBox[{"Print", "[", "\"\<Left button released\>\"", "]"}], "\[IndentingNewLine]"}]}], "]"}], ";", "\[IndentingNewLine]", RowBox[{"If", "[", RowBox[{RowBox[{"buttonR", "==", "Tinkerforge`BrickletDualButton`BUTTONUSTATEUPRESSED"}], ",", RowBox[{"\[IndentingNewLine]", RowBox[{"Print", "[", "\"\<Right button pressed\>\"", "]"}]}], ",", RowBox[{"\[IndentingNewLine]", RowBox[{"Print", "[", "\"\<Right button released\>\"", "]"}], "\[IndentingNewLine]"}]}], "]"}], ";", "\[IndentingNewLine]", RowBox[{"Print", "[", "\"\<\>\"", "]"}], "\[IndentingNewLine]"}]}], "]"}]}],
+   RowBox[{"
+"}],
+   RowBox[{"AddEventHandler", "[", RowBox[{RowBox[{"db", "@", "StateChangedCallback"}], ",", "StateChangedCB"}], "]"}],
+   RowBox[{"
+"}],
+   RowBox[{"Input", "[", "\"\<Click OK to exit\>\"", "]"}],
+   RowBox[{"
+"}],
+   RowBox[{"(*", "Clean up", "*)"}],
+   RowBox[{"ipcon", "@", RowBox[{"Disconnect", "[", "]"}]}],
+   RowBox[{"ReleaseNETObject", "[", "db", "]"}],
+   RowBox[{"ReleaseNETObject", "[", "ipcon", "]"}]
+  }], "Input"
+ ]
+}]
