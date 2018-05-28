@@ -21,15 +21,15 @@ public class ExampleCallback {
 		db.addStateChangedListener(new BrickletDualButtonV2.StateChangedListener() {
 			public void stateChanged(int buttonL, int buttonR, int ledL, int ledR) {
 				if(buttonL == BrickletDualButtonV2.BUTTON_STATE_PRESSED) {
-					System.out.println("Left button pressed");
-				} else {
-					System.out.println("Left button released");
+					System.out.println("Left Button: Pressed");
+				} else if(buttonL == BrickletDualButtonV2.BUTTON_STATE_RELEASED) {
+					System.out.println("Left Button: Released");
 				}
 
 				if(buttonR == BrickletDualButtonV2.BUTTON_STATE_PRESSED) {
-					System.out.println("Right button pressed");
-				} else {
-					System.out.println("Right button released");
+					System.out.println("Right Button: Pressed");
+				} else if(buttonR == BrickletDualButtonV2.BUTTON_STATE_RELEASED) {
+					System.out.println("Right Button: Released");
 				}
 
 				System.out.println("");

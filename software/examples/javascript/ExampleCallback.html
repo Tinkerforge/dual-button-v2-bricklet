@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <head>
@@ -45,17 +44,19 @@
                     // Callback function for state changed callback
                     function (buttonL, buttonR, ledL, ledR) {
                         if(buttonL === Tinkerforge.BrickletDualButtonV2.BUTTON_STATE_PRESSED) {
-                            textArea.value += 'Left button pressed\n';
+                            textArea.value += 'Left Button: Pressed\n';
                         }
-                        else {
-                            textArea.value += 'Left button released\n';
+                        else if(buttonL === Tinkerforge.BrickletDualButtonV2.BUTTON_STATE_RELEASED) {
+                            textArea.value += 'Left Button: Released\n';
                         }
+
                         if(buttonR === Tinkerforge.BrickletDualButtonV2.BUTTON_STATE_PRESSED) {
-                            textArea.value += 'Right button pressed\n';
+                            textArea.value += 'Right Button: Pressed\n';
                         }
-                        else {
-                            textArea.value += 'Right button released\n';
+                        else if(buttonR === Tinkerforge.BrickletDualButtonV2.BUTTON_STATE_RELEASED) {
+                            textArea.value += 'Right Button: Released\n';
                         }
+
                         textArea.value += '\n';
                         textArea.scrollTop = textArea.scrollHeight;
                     }

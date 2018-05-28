@@ -13,20 +13,20 @@ class Example
 	{
 		if(buttonL == BrickletDualButtonV2.BUTTON_STATE_PRESSED)
 		{
-			Console.WriteLine("Left button pressed");
-		} 
-		else
+			Console.WriteLine("Left Button: Pressed");
+		}
+		else if(buttonL == BrickletDualButtonV2.BUTTON_STATE_RELEASED)
 		{
-			Console.WriteLine("Left button released");
+			Console.WriteLine("Left Button: Released");
 		}
 
 		if(buttonR == BrickletDualButtonV2.BUTTON_STATE_PRESSED)
 		{
-			Console.WriteLine("Right button pressed");
-		} 
-		else
+			Console.WriteLine("Right Button: Pressed");
+		}
+		else if(buttonR == BrickletDualButtonV2.BUTTON_STATE_RELEASED)
 		{
-			Console.WriteLine("Right button released");
+			Console.WriteLine("Right Button: Released");
 		}
 
 		Console.WriteLine("");

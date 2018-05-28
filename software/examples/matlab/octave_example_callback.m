@@ -20,23 +20,17 @@ end
 
 % Callback function for state changed callback
 function cb_state_changed(e)
-    if java2int(e.buttonL) == 0
-        fprintf("Left button pressed\n");
-    else
-        fprintf("Left button released\n");
+    if e.buttonL == 0
+        fprintf("Left Button: Pressed\n");
+    elseif e.buttonL == 1
+        fprintf("Left Button: Released\n");
     end
-    if java2int(e.buttonR) == 0
-        fprintf("Right button pressed\n");
-    else
-        fprintf("Right button released\n");
-    end
-    fprintf("\n");
-end
 
-function int = java2int(value)
-    if compare_versions(version(), "3.8", "<=")
-        int = value.intValue();
-    else
-        int = value;
+    if e.buttonR == 0
+        fprintf("Right Button: Pressed\n");
+    elseif e.buttonR == 1
+        fprintf("Right Button: Released\n");
     end
+
+    fprintf("\n");
 end

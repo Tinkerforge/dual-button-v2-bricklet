@@ -13,15 +13,10 @@ ipcon@Connect[host,port]
 (*Callback function for state changed callback*)
 StateChangedCB[sender_,buttonL_,buttonR_,ledL_,ledR_]:=
  Module[{},
-  If[buttonL==Tinkerforge`BrickletDualButton`BUTTONUSTATEUPRESSED,
-   Print["Left button pressed"],
-   Print["Left button released"]
-  ];
-  If[buttonR==Tinkerforge`BrickletDualButton`BUTTONUSTATEUPRESSED,
-   Print["Right button pressed"],
-   Print["Right button released"]
-  ];
-  Print[""]
+  If[buttonL==Tinkerforge`BrickletDualButtonV2`BUTTONUSTATEUPRESSED,Print["Left Button: Pressed"]];
+  If[buttonL==Tinkerforge`BrickletDualButtonV2`BUTTONUSTATEURELEASED,Print["Left Button: Released"]];
+  If[buttonR==Tinkerforge`BrickletDualButtonV2`BUTTONUSTATEUPRESSED,Print["Right Button: Pressed"]];
+  If[buttonR==Tinkerforge`BrickletDualButtonV2`BUTTONUSTATEURELEASED,Print["Right Button: Released"]]
  ]
 
 AddEventHandler[db@StateChangedCallback,StateChangedCB]

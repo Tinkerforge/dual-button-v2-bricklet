@@ -20,15 +20,15 @@ ipcon.connect HOST, PORT # Connect to brickd
 db.register_callback(BrickletDualButtonV2::CALLBACK_STATE_CHANGED) do |button_l, button_r,
                                                                        led_l, led_r|
   if button_l == BrickletDualButtonV2::BUTTON_STATE_PRESSED
-    puts 'Left button pressed'
-  else
-    puts 'Left button released'
+    puts "Left Button: Pressed"
+  elsif button_l == BrickletDualButtonV2::BUTTON_STATE_RELEASED
+    puts "Left Button: Released"
   end
 
   if button_r == BrickletDualButtonV2::BUTTON_STATE_PRESSED
-    puts 'Right button pressed'
-  else
-    puts 'Right button released'
+    puts "Right Button: Pressed"
+  elsif button_r == BrickletDualButtonV2::BUTTON_STATE_RELEASED
+    puts "Right Button: Released"
   end
 
   puts ''

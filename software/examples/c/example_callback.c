@@ -13,15 +13,15 @@ void cb_state_changed(uint8_t button_l, uint8_t button_r, uint8_t led_l, uint8_t
 	(void)led_l; (void)led_r; (void)user_data; // avoid unused parameter warning
 
 	if(button_l == DUAL_BUTTON_V2_BUTTON_STATE_PRESSED) {
-		printf("Left button pressed\n");
-	} else {
-		printf("Left button released\n");
+		printf("Left Button: Pressed\n");
+	} else if(button_l == DUAL_BUTTON_V2_BUTTON_STATE_RELEASED) {
+		printf("Left Button: Released\n");
 	}
 
 	if(button_r == DUAL_BUTTON_V2_BUTTON_STATE_PRESSED) {
-		printf("Right button pressed\n");
-	} else {
-		printf("Right button released\n");
+		printf("Right Button: Pressed\n");
+	} else if(button_r == DUAL_BUTTON_V2_BUTTON_STATE_RELEASED) {
+		printf("Right Button: Released\n");
 	}
 
 	printf("\n");

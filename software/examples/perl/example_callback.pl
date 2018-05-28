@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 
+use strict;
 use Tinkerforge::IPConnection;
 use Tinkerforge::BrickletDualButtonV2;
 
@@ -12,22 +13,22 @@ sub cb_state_changed
 {
     my ($button_l, $button_r, $led_l, $led_r) = @_;
 
-    if ($button_l == Tinkerforge::BrickletDualButton->BUTTON_STATE_PRESSED)
+    if ($button_l == Tinkerforge::BrickletDualButtonV2->BUTTON_STATE_PRESSED)
     {
-        print "Left button pressed\n";
-    }    
-    else
+        print "Left Button: Pressed\n";
+    }
+    elsif ($button_l == Tinkerforge::BrickletDualButtonV2->BUTTON_STATE_RELEASED)
     {
-        print "Left button released\n";
+        print "Left Button: Released\n";
     }
 
-    if ($button_r == Tinkerforge::BrickletDualButton->BUTTON_STATE_PRESSED)
+    if ($button_r == Tinkerforge::BrickletDualButtonV2->BUTTON_STATE_PRESSED)
     {
-        print "Right button pressed\n";
+        print "Right Button: Pressed\n";
     }
-    else
+    elsif ($button_r == Tinkerforge::BrickletDualButtonV2->BUTTON_STATE_RELEASED)
     {
-        print "Right button released\n";
+        print "Right Button: Released\n";
     }
 
     print "\n";

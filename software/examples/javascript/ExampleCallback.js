@@ -19,17 +19,19 @@ db.on(Tinkerforge.BrickletDualButtonV2.CALLBACK_STATE_CHANGED,
     // Callback function for state changed callback
     function (buttonL, buttonR, ledL, ledR) {
         if(buttonL === Tinkerforge.BrickletDualButtonV2.BUTTON_STATE_PRESSED) {
-            console.log('Left button pressed');
+            console.log('Left Button: Pressed');
         }
-        else {
-            console.log('Left button Released');
+        else if(buttonL === Tinkerforge.BrickletDualButtonV2.BUTTON_STATE_RELEASED) {
+            console.log('Left Button: Released');
         }
+
         if(buttonR === Tinkerforge.BrickletDualButtonV2.BUTTON_STATE_PRESSED) {
-            console.log('Right button pressed');
+            console.log('Right Button: Pressed');
         }
-        else{
-            console.log('Right button Released');
+        else if(buttonR === Tinkerforge.BrickletDualButtonV2.BUTTON_STATE_RELEASED) {
+            console.log('Right Button: Released');
         }
+
         console.log();
     }
 );

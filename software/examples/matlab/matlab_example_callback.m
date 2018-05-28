@@ -22,14 +22,16 @@ end
 % Callback function for state changed callback
 function cb_state_changed(e)
     if e.buttonL == com.tinkerforge.BrickletDualButtonV2.BUTTON_STATE_PRESSED
-        fprintf('Left button pressed\n');
-    else
-        fprintf('Left button released\n');
+        fprintf('Left Button: Pressed\n');
+    elseif e.buttonL == com.tinkerforge.BrickletDualButtonV2.BUTTON_STATE_RELEASED
+        fprintf('Left Button: Released\n');
     end
+
     if e.buttonR == com.tinkerforge.BrickletDualButtonV2.BUTTON_STATE_PRESSED
-        fprintf('Right button pressed\n');
-    else
-        fprintf('Right button released\n');
+        fprintf('Right Button: Pressed\n');
+    elseif e.buttonR == com.tinkerforge.BrickletDualButtonV2.BUTTON_STATE_RELEASED
+        fprintf('Right Button: Released\n');
     end
+
     fprintf('\n');
 end

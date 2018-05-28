@@ -13,16 +13,16 @@ const UID = 'XYZ'; // Change XYZ to the UID of your Dual Button Bricklet 2.0
 // Callback function for state changed callback
 function cb_stateChanged($button_l, $button_r, $led_l, $led_r)
 {
-    if($button_l == BrickletDualButton::BUTTON_STATE_PRESSED) {
-        echo "Left button pressed\n";
-    } else {
-        echo "Left button released\n";
+    if ($button_l == BrickletDualButtonV2::BUTTON_STATE_PRESSED) {
+        echo "Left Button: Pressed\n";
+    } elseif ($button_l == BrickletDualButtonV2::BUTTON_STATE_RELEASED) {
+        echo "Left Button: Released\n";
     }
 
-    if($button_r == BrickletDualButton::BUTTON_STATE_PRESSED) {
-        echo "Right button pressed\n";
-    } else {
-        echo "Right button released\n";
+    if ($button_r == BrickletDualButtonV2::BUTTON_STATE_PRESSED) {
+        echo "Right Button: Pressed\n";
+    } elseif ($button_r == BrickletDualButtonV2::BUTTON_STATE_RELEASED) {
+        echo "Right Button: Released\n";
     }
 
     echo "\n";
