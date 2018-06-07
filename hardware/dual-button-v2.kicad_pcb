@@ -24,7 +24,7 @@
 
   (layers
     (0 Vorderseite signal)
-    (31 Rückseite signal hide)
+    (31 Rückseite signal)
     (32 B.Adhes user)
     (33 F.Adhes user)
     (34 B.Paste user)
@@ -6881,7 +6881,7 @@
     (fill yes (arc_segments 16) (thermal_gap 0.29972) (thermal_bridge_width 0.29972))
     (polygon
       (pts
-        (xy 159.1 131.4) (xy 178.9 131.4) (xy 178.9 86.6) (xy 159.1 86.6)
+        (xy 159 131.5) (xy 179 131.5) (xy 179 86.5) (xy 159 86.5)
       )
     )
     (filled_polygon
