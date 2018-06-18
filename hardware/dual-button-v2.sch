@@ -29,7 +29,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:dual_button-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -266,7 +265,7 @@ U 1 1 5A8D7332
 P 1500 2400
 F 0 "C2" V 1450 2250 50  0000 L CNN
 F 1 "220pF" V 1550 2100 50  0000 L CNN
-F 2 "kicad-libraries:C0402E" H 1500 2400 60  0001 C CNN
+F 2 "kicad-libraries:C0402F" H 1500 2400 60  0001 C CNN
 F 3 "" H 1500 2400 60  0001 C CNN
 	1    1500 2400
 	-1   0    0    1   
