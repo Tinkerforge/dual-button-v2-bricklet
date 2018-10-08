@@ -127,16 +127,18 @@ bool handle_state_changed_callback(void) {
 	static bool is_buffered = false;
 	static StateChanged_Callback cb;
 
-	if(!is_buffered && button.state_changed_callback_enabled && button.state_changed) {
-		button.state_changed = false;
-		tfp_make_default_header(&cb.header, bootloader_get_uid(), sizeof(StateChanged_Callback), FID_CALLBACK_STATE_CHANGED);
+	if(!is_buffered) {
+		if(button.state_changed_callback_enabled && button.state_changed) {
+			button.state_changed = false;
+			tfp_make_default_header(&cb.header, bootloader_get_uid(), sizeof(StateChanged_Callback), FID_CALLBACK_STATE_CHANGED);
 
-		cb.button_l = button.button_l;
-		cb.button_r	= button.button_r;
-		cb.led_l    = button.led_l;
-		cb.led_r    = button.led_r;
-	} else {
-		return false;
+			cb.button_l = button.button_l;
+			cb.button_r = button.button_r;
+			cb.led_l    = button.led_l;
+			cb.led_r    = button.led_r;
+		} else {
+			return false;
+		}
 	}
 
 	if(bootloader_spitfp_is_send_possible(&bootloader_status.st)) {
