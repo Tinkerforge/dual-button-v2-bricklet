@@ -1,32 +1,33 @@
 use std::{error::Error, io, thread};
-use tinkerforge::{dual_button_v2_bricklet::*, ipconnection::IpConnection};
+use tinkerforge::{dual_button_v2_bricklet::*, ip_connection::IpConnection};
 
-const HOST: &str = "127.0.0.1";
+const HOST: &str = "localhost";
 const PORT: u16 = 4223;
-const UID: &str = "XYZ"; // Change XYZ to the UID of your Dual Button Bricklet 2.0
+const UID: &str = "XYZ"; // Change XYZ to the UID of your Dual Button Bricklet 2.0.
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let ipcon = IpConnection::new(); // Create IP connection
-    let dual_button_v2_bricklet = DualButtonV2Bricklet::new(UID, &ipcon); // Create device object
+    let ipcon = IpConnection::new(); // Create IP connection.
+    let db = DualButtonV2Bricklet::new(UID, &ipcon); // Create device object.
 
-    ipcon.connect(HOST, PORT).recv()??; // Connect to brickd
-                                        // Don't use device before ipcon is connected
+    ipcon.connect((HOST, PORT)).recv()??; // Connect to brickd.
+                                          // Don't use device before ipcon is connected.
 
-    //Create listener for state changed events.
-    let state_changed_listener = dual_button_v2_bricklet.get_state_changed_receiver();
-    // Spawn thread to handle received events. This thread ends when the dual_button_v2_bricklet
+    // Create receiver for state changed events.
+    let state_changed_receiver = db.get_state_changed_receiver();
+
+    // Spawn thread to handle received events. This thread ends when the `db` object
     // is dropped, so there is no need for manual cleanup.
     thread::spawn(move || {
-        for event in state_changed_listener {
-            if event.button_l == DUAL_BUTTON_V2_BRICKLET_BUTTON_STATE_PRESSED {
+        for state_changed in state_changed_receiver {
+            if state_changed.button_l == DUAL_BUTTON_V2_BRICKLET_BUTTON_STATE_PRESSED {
                 println!("Left Button: Pressed");
-            } else if event.button_l == DUAL_BUTTON_V2_BRICKLET_BUTTON_STATE_RELEASED {
+            } else if state_changed.button_l == DUAL_BUTTON_V2_BRICKLET_BUTTON_STATE_RELEASED {
                 println!("Left Button: Released");
             }
 
-            if event.button_r == DUAL_BUTTON_V2_BRICKLET_BUTTON_STATE_PRESSED {
+            if state_changed.button_r == DUAL_BUTTON_V2_BRICKLET_BUTTON_STATE_PRESSED {
                 println!("Right Button: Pressed");
-            } else if event.button_r == DUAL_BUTTON_V2_BRICKLET_BUTTON_STATE_RELEASED {
+            } else if state_changed.button_r == DUAL_BUTTON_V2_BRICKLET_BUTTON_STATE_RELEASED {
                 println!("Right Button: Released");
             }
 
