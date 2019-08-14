@@ -15,6 +15,9 @@ function matlab_example_callback()
     % Register state changed callback to function cb_state_changed
     set(db, 'StateChangedCallback', @(h, e) cb_state_changed(e));
 
+    % Enable state changed callback
+    db.setStateChangedCallbackConfiguration(true);
+
     input('Press key to exit\n', 's');
     ipcon.disconnect();
 end

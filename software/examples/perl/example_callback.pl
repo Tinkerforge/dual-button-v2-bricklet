@@ -43,6 +43,9 @@ $ipcon->connect(&HOST, &PORT); # Connect to brickd
 # Register state changed callback to subroutine cb_state_changed
 $db->register_callback($db->CALLBACK_STATE_CHANGED, 'cb_state_changed');
 
+# Enable state changed callback
+$db->set_state_changed_callback_configuration(1);
+
 print "Press key to exit\n";
 <STDIN>;
 $ipcon->disconnect();

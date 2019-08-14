@@ -37,6 +37,9 @@ $ipcon->connect(HOST, PORT); // Connect to brickd
 // Register state changed callback to function cb_stateChanged
 $db->registerCallback(BrickletDualButtonV2::CALLBACK_STATE_CHANGED, 'cb_stateChanged');
 
+// Enable state changed callback
+$db->setStateChangedCallbackConfiguration(TRUE);
+
 echo "Press ctrl+c to exit\n";
 $ipcon->dispatchCallbacks(-1); // Dispatch callbacks forever
 

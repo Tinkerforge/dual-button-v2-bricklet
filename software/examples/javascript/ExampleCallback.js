@@ -14,6 +14,13 @@ ipcon.connect(HOST, PORT,
 ); // Connect to brickd
 // Don't use device before ipcon is connected
 
+ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
+    function (connectReason) {
+        // Enable state changed callback
+        db.setStateChangedCallbackConfiguration(true);
+    }
+);
+
 // Register state changed callback
 db.on(Tinkerforge.BrickletDualButtonV2.CALLBACK_STATE_CHANGED,
     // Callback function for state changed callback

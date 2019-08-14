@@ -14,6 +14,9 @@ function octave_example_callback()
     % Register state changed callback to function cb_state_changed
     db.addStateChangedCallback(@cb_state_changed);
 
+    % Enable state changed callback
+    db.setStateChangedCallbackConfiguration(true);
+
     input("Press key to exit\n", "s");
     ipcon.disconnect();
 end

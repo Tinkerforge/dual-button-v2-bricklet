@@ -21,6 +21,9 @@ StateChangedCB[sender_,buttonL_,buttonR_,ledL_,ledR_]:=
 
 AddEventHandler[db@StateChangedCallback,StateChangedCB]
 
+(*Enable state changed callback*)
+db@SetStateChangedCallbackConfiguration[True]
+
 Input["Click OK to exit"]
 
 (*Clean up*)

@@ -25,6 +25,10 @@ Notebook[{
    RowBox[{"AddEventHandler", "[", RowBox[{RowBox[{"db", "@", "StateChangedCallback"}], ",", "StateChangedCB"}], "]"}],
    RowBox[{"
 "}],
+   RowBox[{"(*", "Enable state changed callback", "*)"}],
+   RowBox[{"db", "@", RowBox[{"SetStateChangedCallbackConfiguration", "[", "True", "]"}]}],
+   RowBox[{"
+"}],
    RowBox[{"Input", "[", "\"\<Click OK to exit\>\"", "]"}],
    RowBox[{"
 "}],

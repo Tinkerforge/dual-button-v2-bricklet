@@ -34,6 +34,9 @@ Module ExampleCallback
         ' Register state changed callback to subroutine StateChangedCB
         AddHandler db.StateChangedCallback, AddressOf StateChangedCB
 
+        ' Enable state changed callback
+        db.SetStateChangedCallbackConfiguration(True)
+
         Console.WriteLine("Press key to exit")
         Console.ReadLine()
         ipcon.Disconnect()

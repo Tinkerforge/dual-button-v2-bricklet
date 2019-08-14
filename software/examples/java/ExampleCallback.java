@@ -36,6 +36,9 @@ public class ExampleCallback {
 			}
 		});
 
+		// Enable state changed callback
+		db.setStateChangedCallbackConfiguration(true);
+
 		System.out.println("Press key to exit"); System.in.read();
 		ipcon.disconnect();
 	}

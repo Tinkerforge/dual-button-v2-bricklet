@@ -35,6 +35,9 @@ func main() {
 		fmt.Println()
 	})
 
+	// Enable state changed callback
+	db.SetStateChangedCallbackConfiguration(true)
+
 	fmt.Print("Press enter to exit.")
 	fmt.Scanln()
 }

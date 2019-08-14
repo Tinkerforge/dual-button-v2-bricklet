@@ -35,6 +35,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     });
 
+    // Enable state changed callback
+    db.set_state_changed_callback_configuration(true);
+
     println!("Press enter to exit.");
     let mut _input = String::new();
     io::stdin().read_line(&mut _input)?;

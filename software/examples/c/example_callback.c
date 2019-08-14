@@ -49,6 +49,9 @@ int main(void) {
 	                                 (void *)cb_state_changed,
 	                                 NULL);
 
+	// Enable state changed callback
+	dual_button_v2_set_state_changed_callback_configuration(&db, true);
+
 	printf("Press key to exit\n");
 	getchar();
 	dual_button_v2_destroy(&db);

@@ -62,6 +62,9 @@ begin
   { Register state changed callback to procedure StateChangedCB }
   db.OnStateChanged := {$ifdef FPC}@{$endif}StateChangedCB;
 
+  { Enable state changed callback }
+  db.SetStateChangedCallbackConfiguration(true);
+
   WriteLn('Press key to exit');
   ReadLn;
   ipcon.Destroy; { Calls ipcon.Disconnect internally }

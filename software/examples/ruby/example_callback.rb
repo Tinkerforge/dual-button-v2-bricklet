@@ -34,6 +34,9 @@ db.register_callback(BrickletDualButtonV2::CALLBACK_STATE_CHANGED) do |button_l,
   puts ''
 end
 
+# Enable state changed callback
+db.set_state_changed_callback_configuration true
+
 puts 'Press key to exit'
 $stdin.gets
 ipcon.disconnect

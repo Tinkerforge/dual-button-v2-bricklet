@@ -43,6 +43,9 @@ class Example
 		// Register state changed callback to function StateChangedCB
 		db.StateChangedCallback += StateChangedCB;
 
+		// Enable state changed callback
+		db.SetStateChangedCallbackConfiguration(true);
+
 		Console.WriteLine("Press enter to exit");
 		Console.ReadLine();
 		ipcon.Disconnect();
