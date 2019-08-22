@@ -46,7 +46,7 @@ int main(void) {
 	// Register state changed callback to function cb_state_changed
 	dual_button_v2_register_callback(&db,
 	                                 DUAL_BUTTON_V2_CALLBACK_STATE_CHANGED,
-	                                 (void *)cb_state_changed,
+	                                 (void (*)(void))cb_state_changed,
 	                                 NULL);
 
 	// Enable state changed callback
