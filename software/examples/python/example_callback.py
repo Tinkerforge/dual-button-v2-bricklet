@@ -35,5 +35,5 @@ if __name__ == "__main__":
     # Enable state changed callback
     db.set_state_changed_callback_configuration(True)
 
-    raw_input("Press key to exit\n") # Use input() in Python 3
+    input("Press key to exit\n") # Use raw_input() in Python 2
     ipcon.disconnect()
