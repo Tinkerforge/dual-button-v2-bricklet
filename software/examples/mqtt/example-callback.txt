@@ -6,4 +6,4 @@ setup:
 	publish '{"register": true}' to tinkerforge/register/dual_button_v2_bricklet/XYZ/state_changed # Register state_changed callback
 
 	# Enable state changed callback
-	publish '{"enabled": true}' to tinkerforge/request/dual_button_v2_bricklet/XYZ/set_state_changed_callback_configuration 
+	publish '{"enabled": true}' to tinkerforge/request/dual_button_v2_bricklet/XYZ/set_state_changed_callback_configuration
