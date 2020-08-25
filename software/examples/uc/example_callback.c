@@ -1,13 +1,9 @@
-
-
 #include "bindings/hal_common.h"
 #include "bindings/bricklet_dual_button_v2.h"
 
 #define UID "XYZ" // Change XYZ to the UID of your Dual Button Bricklet 2.0
 
 void check(int rc, const char* msg);
-
-
 
 // Callback function for state changed callback
 void state_changed_handler(TF_DualButtonV2 *device, uint8_t button_l, uint8_t button_r,
@@ -28,7 +24,6 @@ void state_changed_handler(TF_DualButtonV2 *device, uint8_t button_l, uint8_t bu
 
 	tf_hal_printf("\n");
 }
-
 
 TF_DualButtonV2 db;
 
