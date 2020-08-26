@@ -31,16 +31,14 @@ void example_setup(TF_HalContext *hal) {
 	// Create device object
 	check(tf_dual_button_v2_create(&db, UID, hal), "create device object");
 
-
 	// Register state changed callback to function state_changed_handler
 	tf_dual_button_v2_register_state_changed_callback(&db,
-	                                                 state_changed_handler,
-	                                                 NULL);
+	                                                  state_changed_handler,
+	                                                  NULL);
 
 	// Enable state changed callback
 	check(tf_dual_button_v2_set_state_changed_callback_configuration(&db,
 	                                                                 true), "call set_state_changed_callback_configuration");
-
 }
 
 void example_loop(TF_HalContext *hal) {
