@@ -5,9 +5,14 @@
 
 void check(int rc, const char* msg);
 
+void example_setup(TF_HalContext *hal);
+void example_loop(TF_HalContext *hal);
+
+
 // Callback function for state changed callback
-void state_changed_handler(TF_DualButtonV2 *device, uint8_t button_l, uint8_t button_r,
-                           uint8_t led_l, uint8_t led_r, void *user_data) {
+static void state_changed_handler(TF_DualButtonV2 *device, uint8_t button_l,
+                                  uint8_t button_r, uint8_t led_l, uint8_t led_r,
+                                  void *user_data) {
 	(void)device; (void)led_l; (void)led_r; (void)user_data; // avoid unused parameter warning
 
 	if(button_l == TF_DUAL_BUTTON_V2_BUTTON_STATE_PRESSED) {
@@ -25,7 +30,7 @@ void state_changed_handler(TF_DualButtonV2 *device, uint8_t button_l, uint8_t bu
 	tf_hal_printf("\n");
 }
 
-TF_DualButtonV2 db;
+static TF_DualButtonV2 db;
 
 void example_setup(TF_HalContext *hal) {
 	// Create device object
