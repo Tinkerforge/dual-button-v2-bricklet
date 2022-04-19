@@ -9,8 +9,8 @@
 
 void check(int rc, const char* msg);
 
-void example_setup(TF_HalContext *hal);
-void example_loop(TF_HalContext *hal);
+void example_setup(TF_HAL *hal);
+void example_loop(TF_HAL *hal);
 
 
 // Callback function for state changed callback
@@ -19,15 +19,15 @@ static void state_changed_handler(TF_DualButtonV2 *device, uint8_t button_l,
                                   void *user_data) {
 	(void)device; (void)led_l; (void)led_r; (void)user_data; // avoid unused parameter warning
 
-	if(button_l == TF_DUAL_BUTTON_V2_BUTTON_STATE_PRESSED) {
+	if (button_l == TF_DUAL_BUTTON_V2_BUTTON_STATE_PRESSED) {
 		tf_hal_printf("Left Button: Pressed\n");
-	} else if(button_l == TF_DUAL_BUTTON_V2_BUTTON_STATE_RELEASED) {
+	} else if (button_l == TF_DUAL_BUTTON_V2_BUTTON_STATE_RELEASED) {
 		tf_hal_printf("Left Button: Released\n");
 	}
 
-	if(button_r == TF_DUAL_BUTTON_V2_BUTTON_STATE_PRESSED) {
+	if (button_r == TF_DUAL_BUTTON_V2_BUTTON_STATE_PRESSED) {
 		tf_hal_printf("Right Button: Pressed\n");
-	} else if(button_r == TF_DUAL_BUTTON_V2_BUTTON_STATE_RELEASED) {
+	} else if (button_r == TF_DUAL_BUTTON_V2_BUTTON_STATE_RELEASED) {
 		tf_hal_printf("Right Button: Released\n");
 	}
 
@@ -36,7 +36,7 @@ static void state_changed_handler(TF_DualButtonV2 *device, uint8_t button_l,
 
 static TF_DualButtonV2 db;
 
-void example_setup(TF_HalContext *hal) {
+void example_setup(TF_HAL *hal) {
 	// Create device object
 	check(tf_dual_button_v2_create(&db, UID, hal), "create device object");
 
@@ -50,7 +50,7 @@ void example_setup(TF_HalContext *hal) {
 	                                                                 true), "call set_state_changed_callback_configuration");
 }
 
-void example_loop(TF_HalContext *hal) {
+void example_loop(TF_HAL *hal) {
 	// Poll for callbacks
 	tf_hal_callback_tick(hal, 0);
 }
