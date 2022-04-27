@@ -1,17 +1,13 @@
 // This example is not self-contained.
-// It requres usage of the example driver specific to your platform.
+// It requires usage of the example driver specific to your platform.
 // See the HAL documentation.
 
-#include "bindings/hal_common.h"
-#include "bindings/bricklet_dual_button_v2.h"
+#include "src/bindings/hal_common.h"
+#include "src/bindings/bricklet_dual_button_v2.h"
 
-#define UID "XYZ" // Change XYZ to the UID of your Dual Button Bricklet 2.0
-
-void check(int rc, const char* msg);
-
+void check(int rc, const char *msg);
 void example_setup(TF_HAL *hal);
 void example_loop(TF_HAL *hal);
-
 
 // Callback function for state changed callback
 static void state_changed_handler(TF_DualButtonV2 *device, uint8_t button_l,
@@ -38,7 +34,7 @@ static TF_DualButtonV2 db;
 
 void example_setup(TF_HAL *hal) {
 	// Create device object
-	check(tf_dual_button_v2_create(&db, UID, hal), "create device object");
+	check(tf_dual_button_v2_create(&db, NULL, hal), "create device object");
 
 	// Register state changed callback to function state_changed_handler
 	tf_dual_button_v2_register_state_changed_callback(&db,
